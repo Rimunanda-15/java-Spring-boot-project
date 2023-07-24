@@ -1,3 +1,3 @@
-# Bootcamp FULLSTACK PT. Tabel Date Informatika 
+# Bootcamp FULLSTACK PT. Tabel Data Informatika 
 
 Author by : Rimunanda Ma'arif Parinduri
