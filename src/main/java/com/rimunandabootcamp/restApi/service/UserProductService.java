@@ -14,8 +14,19 @@ import java.util.List;
 @RequiredArgsConstructor
 public class UserProductService {
     private final UserProductDao dao;
-    public void save(UserProductDto.Save data ){this.dao.save(data);}
-    public void update(Integer id, UserProductDto.Update data){findById(id); this.dao.update(id,data);}
+    private final UserService user;
+    private final ProductService product;
+    public void save(UserProductDto.Save data ){
+        user.findById(data.getUserId());
+        product.findById(data.getProductId());
+        this.dao.save(data);
+    }
+    public void update(Integer id, UserProductDto.Update data){
+        findById(id);
+        user.findById(data.getUserId());
+        product.findById(data.getProductId());
+        this.dao.update(id,data);
+    }
     public List<UserProduct> findAll(){
         return this.dao.findAll();
     }

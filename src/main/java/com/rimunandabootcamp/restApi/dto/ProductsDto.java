@@ -14,7 +14,7 @@ public class ProductsDto {
         private String name;
 
         @NotNull(message = "tidak boleh kosong ")
-        @Min(value = 1)
+        @Min(value = 1,message = "tidak ada id ny")
         private Integer categoryId;
         @Min(value = 0)
         private String stok;

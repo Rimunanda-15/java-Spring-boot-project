@@ -24,7 +24,7 @@ public class CategoryService {
     }
     public Categories findById(Integer id){
         return this.dao.findById(id)
-                .orElseThrow( () -> new IdNotFoundException("Kategori dengan id"+ id + "tidak ditemukan"));
+                .orElseThrow( () -> new IdNotFoundException("Kategori dengan id "+ id + " tidak ditemukan"));
     }
 
     public void delete(Integer id){

@@ -15,23 +15,28 @@ public class UserProductDto {
         private Integer userId;
         @NotNull(message = "data tidak boleh kosong")
         @Min(value = -1)
+        @NotEmpty(message = "string tidak boleh kosong")
         private Integer productId;
         @NotNull(message = "data tidak boleh kosong")
         @Min(value = 0,message = "minimal data diisi dimulai dengan 0 ")
         @NotNull(message = "data tidak boleh kosong")
+        @Min(value = -1,message = "minimal data diisi dimulai dengan 0 ")
         private String quantity;
     }
     @Data
     public static class Update{
         @NotNull(message = "data tidak boleh kosong")
+        @NotEmpty(message = "string tidak boleh kosong")
         @Min(value = -1)
         private Integer userId;
         @NotNull(message = "data tidak boleh kosong")
         @Min(value = -1)
+        @NotEmpty(message = "string tidak boleh kosong")
         private Integer productId;
         @NotNull(message = "data tidak boleh kosong")
         @Min(value = 0,message = "minimal data diisi dimulai dengan 0 ")
         @NotNull(message = "data tidak boleh kosong")
+        @Min(value = -1,message = "minimal data diisi dimulai dengan 0 ")
         private String quantity;
     }
 }
