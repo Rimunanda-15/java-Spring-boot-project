@@ -3,13 +3,18 @@ package com.rimunandabootcamp.restApi.controller;
 import com.rimunandabootcamp.restApi.dto.UsersDto;
 import com.rimunandabootcamp.restApi.entity.Users;
 import com.rimunandabootcamp.restApi.service.UserService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.service.annotation.DeleteExchange;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/api/user")
@@ -33,17 +38,28 @@ public class UserController {
     }
 
     @PostMapping
-    public ResponseEntity<String> save(
-            @RequestBody UsersDto.Save data
+    public ResponseEntity<Map<String, Object>> save(
+            @RequestBody @Valid UsersDto.Save data,
+            BindingResult result
             ){
+        Map<String,Object> output = new HashMap<>();
+        if (result.hasErrors()){
+            Map<String,Object> errors = new HashMap<>();
+            for (FieldError fieldError : result.getFieldErrors()){
+                errors.put(fieldError.getField(),fieldError.getDefaultMessage());
+            }
+            output.put("status", errors);
+            return ResponseEntity.badRequest().body(output);
+        }
         this.service.save(data);
-        return ResponseEntity.ok("Data berhasil di tambahkan");
+        output.put("status", "Berhasil menambah user");
+        return ResponseEntity.ok(output);
     }
 
     @PutMapping("/{id}")
     public ResponseEntity<String> update(
             @PathVariable Integer id,
-            @RequestBody UsersDto.Save data
+            @RequestBody UsersDto.Update data
     ){
         try {
             this.service.update(id,data);

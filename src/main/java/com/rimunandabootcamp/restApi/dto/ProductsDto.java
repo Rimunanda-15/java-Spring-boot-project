@@ -6,6 +6,7 @@ public class ProductsDto {
 
     @Data
     public static class Save{
+
         private String name;
         private Integer categoryId;
         private String stok;

@@ -34,7 +34,7 @@ public class UserDao {
         this.jdbcTemplate.update(query,map);
     }
 
-    public void update(int id , UsersDto.Save inputData){
+    public void update(int id , UsersDto.Update inputData){
         String query = "UPDATE public.\"user\"\n" +
                 "\tSET nama=:name, email=:email, phone=:phone\n" +
                 "\tWHERE id=:id ;";

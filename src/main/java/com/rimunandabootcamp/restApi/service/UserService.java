@@ -3,8 +3,8 @@ package com.rimunandabootcamp.restApi.service;
 import com.rimunandabootcamp.restApi.dao.UserDao;
 import com.rimunandabootcamp.restApi.dto.UsersDto;
 import com.rimunandabootcamp.restApi.entity.Users;
+import com.rimunandabootcamp.restApi.exception.IdNotFoundException;
 import lombok.RequiredArgsConstructor;
-import org.apache.catalina.User;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -18,7 +18,7 @@ public class UserService {
         this.dao.save(data);
     }
 
-    public void update(Integer id, UsersDto.Save data){
+    public void update(Integer id, UsersDto.Update data){
         findById(id);
         this.dao.update(id,data);
     }
@@ -30,7 +30,7 @@ public class UserService {
 
     public Users findById(Integer id){
         return this.dao.findById(id)
-                .orElseThrow( () -> new RuntimeException("user dengan id"+ id + "tidak ditemukan"));
+                .orElseThrow( () -> new IdNotFoundException("user dengan id "+ id + " tidak ditemukan"));
     }
     public void delete(Integer id){
         findById(id);
