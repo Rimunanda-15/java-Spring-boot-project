@@ -57,16 +57,23 @@ public class UserController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<String> update(
+    public ResponseEntity<Map<String,Object>> update(
             @PathVariable Integer id,
-            @RequestBody UsersDto.Update data
+            @RequestBody @Valid UsersDto.Update data,
+            BindingResult result
     ){
-        try {
-            this.service.update(id,data);
-            return  ResponseEntity.ok("Data berhasil diubah");
-        }catch (RuntimeException e){
-            return  ResponseEntity.status(HttpStatus.NOT_FOUND).body("Data dengan "+ id +" tidak ditemukan");
+        Map<String,Object> output = new HashMap<>();
+        if (result.hasErrors()){
+            Map<String,Object> errors = new HashMap<>();
+            for (FieldError fieldError : result.getFieldErrors()){
+                errors.put(fieldError.getField(),fieldError.getDefaultMessage());
+            }
+            output.put("status", errors);
+            return ResponseEntity.badRequest().body(output);
         }
+        this.service.update(id, data);
+        output.put("status", "Berhasil mengedit  user");
+        return ResponseEntity.ok(output);
     }
 
 

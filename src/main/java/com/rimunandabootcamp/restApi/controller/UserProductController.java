@@ -8,9 +8,13 @@ import com.rimunandabootcamp.restApi.service.UserProductService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/api/detailproduct")
@@ -32,24 +36,42 @@ public class UserProductController {
     }
 
     @PostMapping
-    public ResponseEntity<String> save(
-            @RequestBody UserProductDto.Save data
+    public ResponseEntity<Map<String,Object>> save(
+            @RequestBody UserProductDto.Save data,
+            BindingResult result
             ){
+        Map<String,Object> output = new HashMap<>();
+        if (result.hasErrors()){
+            Map<String,Object> errors = new HashMap<>();
+            for (FieldError fieldError : result.getFieldErrors()){
+                errors.put(fieldError.getField(),fieldError.getDefaultMessage());
+            }
+            output.put("status", errors);
+            return ResponseEntity.badRequest().body(output);
+        }
         this.service.save(data);
-        return ResponseEntity.ok("Data berhasil di tambahkan");
+        output.put("status", "Berhasil menambah data baru");
+        return ResponseEntity.ok(output);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<String> update(
+    public ResponseEntity<Map<String,Object>> update(
             @PathVariable Integer id,
-            @RequestBody UserProductDto.Save data
+            @RequestBody UserProductDto.Update data,
+            BindingResult result
     ){
-        try {
-            this.service.update(id,data);
-            return  ResponseEntity.ok("Data berhasil diubah");
-        }catch (RuntimeException e){
-            return  ResponseEntity.status(HttpStatus.NOT_FOUND).body("Data dengan "+ id +" tidak ditemukan");
+        Map<String,Object> output = new HashMap<>();
+        if (result.hasErrors()){
+            Map<String,Object> errors = new HashMap<>();
+            for (FieldError fieldError : result.getFieldErrors()){
+                errors.put(fieldError.getField(),fieldError.getDefaultMessage());
+            }
+            output.put("status", errors);
+            return ResponseEntity.badRequest().body(output);
         }
+        this.service.update(id, data);
+        output.put("status", "Berhasil mengubah data baru");
+        return ResponseEntity.ok(output);
     }
 
     @DeleteMapping("/{id}")

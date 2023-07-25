@@ -1,12 +1,37 @@
 package com.rimunandabootcamp.restApi.dto;
 
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NegativeOrZero;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 
 public class UserProductDto {
     @Data
     public  static class Save{
+        @NotNull(message = "data tidak boleh kosong")
+        @NotEmpty(message = "data kosong")
+        @Min(value = -1)
         private Integer userId;
+        @NotNull(message = "data tidak boleh kosong")
+        @Min(value = -1)
         private Integer productId;
+        @NotNull(message = "data tidak boleh kosong")
+        @Min(value = 0,message = "minimal data diisi dimulai dengan 0 ")
+        @NotNull(message = "data tidak boleh kosong")
+        private String quantity;
+    }
+    @Data
+    public static class Update{
+        @NotNull(message = "data tidak boleh kosong")
+        @Min(value = -1)
+        private Integer userId;
+        @NotNull(message = "data tidak boleh kosong")
+        @Min(value = -1)
+        private Integer productId;
+        @NotNull(message = "data tidak boleh kosong")
+        @Min(value = 0,message = "minimal data diisi dimulai dengan 0 ")
+        @NotNull(message = "data tidak boleh kosong")
         private String quantity;
     }
 }

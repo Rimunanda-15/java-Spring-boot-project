@@ -32,12 +32,10 @@ public class ProductDao {
 
     }
 
-    public void update(Integer id , ProductsDto.Save inputData){
+    public void update(Integer id , ProductsDto.Update inputData){
         String query="UPDATE public.product\n" +
                 "\tSET name=:name, category_id=:categoryId, stok=:stok\n" +
                 "\tWHERE id=:id ;";
-
-
         MapSqlParameterSource map = new MapSqlParameterSource();
         map.addValue("id",id);
         map.addValue("name", inputData.getName());
