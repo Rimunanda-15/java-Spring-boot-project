@@ -1,5 +1,6 @@
 package com.rimunandabootcamp.restApi.dto;
 
+import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
@@ -12,6 +13,7 @@ public class UsersDto {
         @NotEmpty(message = "gaboleh string kosong")
         @NotNull(message = "gaboleh null")
         private String name;
+        @Email
         private String email;
         @Size(min = 11, max = 13)
         private  String phone;
@@ -21,6 +23,7 @@ public class UsersDto {
         @NotEmpty(message = "ga boleh String kosong")
         @NotNull(message =  "gaboleh kosong")
         private String name;
+        @Email
         private String email;
         @Size(min = 11,max=13)
         private String phone;
