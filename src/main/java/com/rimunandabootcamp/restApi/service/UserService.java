@@ -1,6 +1,7 @@
 package com.rimunandabootcamp.restApi.service;
 
 import com.rimunandabootcamp.restApi.dao.UserDao;
+import com.rimunandabootcamp.restApi.dao.UserProductDao;
 import com.rimunandabootcamp.restApi.dto.UsersDto;
 import com.rimunandabootcamp.restApi.entity.Users;
 import com.rimunandabootcamp.restApi.exception.IdNotFoundException;
@@ -13,6 +14,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class UserService {
     private final UserDao dao;
+    private final UserProductDao userProductDao;
 
     public void save(UsersDto.Save data){
         this.dao.save(data);
@@ -34,6 +36,7 @@ public class UserService {
     }
     public void delete(Integer id){
         findById(id);
+        this.userProductDao.deleteByUser(id);
         this.dao.delete(id);
     }
 

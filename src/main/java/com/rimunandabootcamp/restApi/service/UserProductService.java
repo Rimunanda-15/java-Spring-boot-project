@@ -1,12 +1,9 @@
 package com.rimunandabootcamp.restApi.service;
 
-import com.rimunandabootcamp.restApi.dao.ProductDao;
 import com.rimunandabootcamp.restApi.dao.UserProductDao;
-import com.rimunandabootcamp.restApi.dto.ProductsDto;
 import com.rimunandabootcamp.restApi.dto.UserProductDto;
 import com.rimunandabootcamp.restApi.entity.Products;
 import com.rimunandabootcamp.restApi.entity.UserProduct;
-import com.rimunandabootcamp.restApi.entity.Users;
 import com.rimunandabootcamp.restApi.exception.IdNotFoundException;
 import com.rimunandabootcamp.restApi.exception.StockNotFoundException;
 import lombok.RequiredArgsConstructor;

@@ -12,4 +12,5 @@ public class Products {
     private String name;
     private Integer categoryId;
     private String stok;
+    private String categoryName;
 }

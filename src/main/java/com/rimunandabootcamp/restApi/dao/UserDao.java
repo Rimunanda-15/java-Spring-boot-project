@@ -53,7 +53,7 @@ public class UserDao {
     * */
     public List<Users> findAll(){
         String query = "SELECT id, nama, email, phone\n" +
-                "\tFROM public.\"user\";";
+                "\tFROM public.\"user\" ORDER BY id ASC ;";
 
         return this.jdbcTemplate.query(query, new RowMapper<Users>() {
             @Override

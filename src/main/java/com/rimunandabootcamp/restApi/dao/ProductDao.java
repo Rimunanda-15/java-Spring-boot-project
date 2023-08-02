@@ -46,8 +46,8 @@ public class ProductDao {
     }
 
     public List<Products>  findAll(){
-        String query = "SELECT id, name, category_id, stok\n" +
-                "\tFROM public.product;";
+        String query = "SELECT p.id, name, category_id,c.nama AS category_name, stok\n" +
+                "\tFROM public.product p JOIN public.category c on c.id = p.category_id ;";
 
         return this.jdbcTemplate.query(query, new RowMapper<Products>() {
             @Override
@@ -56,6 +56,7 @@ public class ProductDao {
                 products.setId(rs.getInt("id"));
                 products.setName(rs.getString("name"));
                 products.setCategoryId(rs.getInt("category_id"));
+                products.setCategoryName(rs.getString("category_name"));
                 products.setStok(rs.getString("stok"));
                 return products;
             }
@@ -88,4 +89,5 @@ public class ProductDao {
         MapSqlParameterSource map = new MapSqlParameterSource("id",id);
         this.jdbcTemplate.update(query,map);
     }
+
 }
